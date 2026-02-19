@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SellAm - Your Storefront + Marketplace in One App</title>
+    <meta name="description" content="Stop losing sales to scattered platforms. SellAm gives you a professional storefront and marketplace access - all in one app.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --purple: #7C3AED;
+            --purple-dark: #6D28D9;
+            --purple-light: #8B5CF6;
+            --coral: #FB7185;
+            --coral-light: #FBBF24;
+            --gold: #FBBF24;
+            --charcoal: #1E293B;
+            --gray: #64748B;
+            --gray-light: #F1F5F9;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--charcoal);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+        
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            letter-spacing: -0.02em;
+        }
+        
+        h2 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            letter-spacing: -0.01em;
+        }
+        
+        h3 {
+            font-size: clamp(1.5rem, 3vw, 2.25rem);
+        }
+        
+        /* Animated gradient background */
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70vh;
+            background: linear-gradient(135deg, 
+                var(--purple) 0%, 
+                var(--purple-light) 50%, 
+                var(--coral) 100%);
+            opacity: 0.08;
+            z-index: -1;
+            animation: gradientShift 15s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% { opacity: 0.08; }
+            50% { opacity: 0.12; }
+        }
+        
+        /* Header */
+        header {
+            padding: 1.5rem 5%;
+            position: sticky;
+            top: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 100;
+            border-bottom: 1px solid rgba(124, 58, 237, 0.1);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--purple);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--purple);
+            letter-spacing: -0.02em;
+        }
+        
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 4rem 5% 6rem;
+            position: relative;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--purple), var(--coral));
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .hero h1 {
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--purple) 0%, var(--coral) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+        
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            color: var(--gray);
+            margin-bottom: 3rem;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+        
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s backwards;
+        }
+        
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-primary {
+            background: var(--purple);
+            color: white;
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background: var(--purple-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(124, 58, 237, 0.4);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--purple);
+            border: 2px solid var(--purple);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--purple);
+            color: white;
+        }
+        
+        /* Pain Points Section */
+        .pain-points {
+            padding: 6rem 5%;
+            background: var(--gray-light);
+        }
+        
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 4rem;
+        }
+        
+        .section-label {
+            color: var(--coral);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pain-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .pain-card {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .pain-card:hover {
+            border-color: var(--purple);
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(124, 58, 237, 0.15);
+        }
+        
+        .pain-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .pain-card h3 {
+            color: var(--charcoal);
+            margin-bottom: 1rem;
+        }
+        
+        .pain-card p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        
+        /* Solution Section */
+        .solution {
+            padding: 6rem 5%;
+            background: var(--purple);
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .solution::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .solution-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .solution h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+        
+        .solution-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .feature {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .feature h3 {
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .feature p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* How It Works */
+        .how-it-works {
+            padding: 6rem 5%;
+            background: white;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            max-width: 1200px;
+            margin: 3rem auto 0;
+        }
+        
+        .step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--purple), var(--coral));
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 800;
+            margin: 0 auto 1.5rem;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .step h3 {
+            margin-bottom: 1rem;
+            color: var(--charcoal);
+        }
+        
+        .step p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        
+        /* Pilot Program CTA */
+        .pilot-cta {
+            padding: 6rem 5%;
+            background: linear-gradient(135deg, var(--purple) 0%, var(--coral) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .pilot-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .pilot-cta h2 {
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pilot-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+        }
+        
+        /* Form Section */
+        .form-section {
+            padding: 6rem 5%;
+            background: var(--gray-light);
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--charcoal);
+            font-weight: 600;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: all 0.3s ease;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--purple);
+            box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            padding: 1.25rem;
+            background: var(--purple);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+        }
+        
+        .submit-btn:hover {
+            background: var(--purple-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(124, 58, 237, 0.3);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            background: var(--charcoal);
+            color: white;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.8;
+        }
+        
+        footer a {
+            color: var(--coral);
+            text-decoration: none;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero {
+                min-height: auto;
+                padding: 3rem 5% 4rem;
+            }
+            
+            .cta-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .pain-grid,
+            .solution-features,
+            .steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-container {
+                padding: 2rem 1.5rem;
+            }
+        }
+        
+        /* Success message */
+        .success-message {
+            display: none;
+            background: #10B981;
+            color: white;
+            padding: 1rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="gradient-bg"></div>
+    
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <div class="logo-icon">🛍️</div>
+            <span class="logo-text">SellAm</span>
+        </div>
+    </header>
+    
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">🚀 Early Access Now Open</div>
+            <h1>Stop Losing Sales to Scattered Platforms</h1>
+            <p class="hero-subtitle">
+                Get your own professional storefront + marketplace access in one app. 
+                Reach thousands of new buyers while keeping your brand.
+            </p>
+            <div class="cta-group">
+                <a href="#signup" class="btn btn-primary">Join the Pilot Program</a>
+                <a href="#how-it-works" class="btn btn-secondary">See How It Works</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pain Points -->
+    <section class="pain-points">
+        <div class="section-header">
+            <p class="section-label">The Problem</p>
+            <h2>Selling Online Shouldn't Be This Hard</h2>
+        </div>
+        <div class="pain-grid">
+            <div class="pain-card">
+                <div class="pain-icon">📱</div>
+                <h3>Scattered Across Platforms</h3>
+                <p>Managing WhatsApp, Instagram, and Facebook separately means lost messages, missed sales, and endless confusion.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">👥</div>
+                <h3>Can't Reach New Customers</h3>
+                <p>You're stuck selling only to people you already know. No way to reach the thousands of buyers searching for what you sell.</p>
+            </div>
+            <div class="pain-card">
+                <div class="pain-icon">💼</div>
+                <h3>Looks Unprofessional</h3>
+                <p>Without a proper storefront, you're losing customers to competitors who look more established and trustworthy.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Solution -->
+    <section class="solution">
+        <div class="solution-content">
+            <h2>Meet SellAm: Your Shop + Marketplace in One App</h2>
+            <p style="text-align: center; font-size: 1.2rem; margin-bottom: 3rem; opacity: 0.95;">
+                Everything you need to sell online professionally - from your phone.
+            </p>
+            
+            <div class="solution-features">
+                <div class="feature">
+                    <span class="feature-icon">🏪</span>
+                    <h3>Your Own Storefront</h3>
+                    <p>Professional shop with your brand, products, and prices - all organized beautifully</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">🌍</span>
+                    <h3>Marketplace Access</h3>
+                    <p>Reach thousands of buyers browsing the SellAm marketplace - instant new customers</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">💳</span>
+                    <h3>Swift Payments</h3>
+                    <p>Get paid fast and securely - no more chasing customers for payment</p>
+                </div>
+                <div class="feature">
+                    <span class="feature-icon">📸</span>
+                    <h3>Photos & Videos</h3>
+                    <p>Showcase your products with stunning images and video links that sell</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- How It Works -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="section-header">
+            <p class="section-label">Simple Process</p>
+            <h2>Get Started in 3 Easy Steps</h2>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>Download & Set Up</h3>
+                <p>Get the SellAm app (PWA), complete quick KYC verification, and set up your shop profile in minutes.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>Upload Your Products</h3>
+                <p>Add your products with photos, videos, descriptions, and prices. Make them look professional and appealing.</p>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>Start Selling</h3>
+                <p>Share your storefront link AND get discovered by marketplace buyers. Watch your sales grow!</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Pilot CTA -->
+    <section class="pilot-cta">
+        <div class="pilot-content">
+            <h2>Join the Pilot Program</h2>
+            <p>Be among the first vendors to access SellAm. Limited spots available - get early access, personalized onboarding support, and help shape the future of the platform.</p>
+            <a href="#signup" class="btn btn-secondary" style="background: white; color: var(--purple); border: none;">
+                Apply for Early Access →
+            </a>
+        </div>
+    </section>
+    
+    <!-- Signup Form -->
+    <section class="form-section" id="signup">
+        <div class="section-header">
+            <p class="section-label">Ready to Grow?</p>
+            <h2>Get Early Access to SellAm</h2>
+            <p>Fill out the form below and we'll reach out within 24 hours with next steps.</p>
+        </div>
+        
+        <div class="form-container">
+            <div class="success-message" id="successMessage">
+                ✅ Application received! We'll contact you within 24 hours.
+            </div>
+            
+            <form id="signupForm" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">WhatsApp Number *</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+234..." required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="business">What Do You Sell? *</label>
+                    <select id="business" name="business" required>
+                        <option value="">Select category...</option>
+                        <option value="fashion">Fashion & Clothing</option>
+                        <option value="beauty">Beauty & Cosmetics</option>
+                        <option value="food">Food & Beverages</option>
+                        <option value="electronics">Electronics & Gadgets</option>
+                        <option value="home">Home & Lifestyle</option>
+                        <option value="crafts">Handmade & Crafts</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Tell Us About Your Business (Optional)</label>
+                    <textarea id="message" name="message" placeholder="How many products do you have? Where do you currently sell?"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Application</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 SellAm. All rights reserved.</p>
+        <p style="margin-top: 0.5rem;">
+            Questions? Email us at <a href="mailto:hello@trysellam.com">hello@trysellam.com</a>
+        </p>
+    </footer>
+    
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+        
+        // Form submission handling
+        const form = document.getElementById('signupForm');
+        const successMessage = document.getElementById('successMessage');
+        
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(form);
+            
+            try {
+                // For Formspree integration - you'll need to update the action URL
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    successMessage.classList.add('show');
+                    form.reset();
+                    
+                    // Scroll to success message
+                    successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        successMessage.classList.remove('show');
+                    }, 5000);
+                } else {
+                    alert('There was a problem submitting your application. Please try again or email us directly.');
+                }
+            } catch (error) {
+                alert('There was a problem submitting your application. Please try again or email us directly.');
+            }
+        });
+    </script>
+</body>
+</html>
